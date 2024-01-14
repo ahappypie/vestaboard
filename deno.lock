@@ -2,7 +2,8 @@
   "version": "3",
   "packages": {
     "specifiers": {
-      "npm:axios": "npm:axios@1.6.5"
+      "npm:axios": "npm:axios@1.6.5",
+      "npm:axios@1.6.5": "npm:axios@1.6.5"
     },
     "npm": {
       "asynckit@0.4.0": {

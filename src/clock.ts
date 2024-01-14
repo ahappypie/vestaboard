@@ -16,21 +16,14 @@ async function main() {
 
 	const firstDisplay = await GetClock(date, ct);
 	// await client.SendMessage(firstDisplay);
-	console.log('set clock')
+	console.log('set clock');
 
-	setInterval(async () => {
-		const newDate = new Date();
-		if(newDate.getFullYear() > date.getFullYear()
-			|| newDate.getMonth() > date.getMonth()
-			|| newDate.getDate() > date.getDate()
-			|| newDate.getHours() > date.getHours()
-			|| newDate.getMinutes() > date.getMinutes()) {
-			date = newDate;
-			const display = await GetClock(date, ct);
-			// await client.SendMessage(display);
-			console.log('update clock')
-		}
-	}, 1000);
+	Deno.cron('vbclock', '* * * * *', async () => {
+		date = new Date();
+		const display = await GetClock(date, ct);
+		// await client.SendMessage(display);
+		console.log('update clock');
+	});
 }
 main();
 
