@@ -1,4 +1,4 @@
-const DICTIONARY: { [char: string]: Number } = {
+const DICTIONARY: { [char: string]: number } = {
 	red: 63,
 	orange: 64,
 	yellow: 65,

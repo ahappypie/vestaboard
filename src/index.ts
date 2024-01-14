@@ -1,6 +1,6 @@
-import { TransformInput } from './characters';
-import { VBClient } from './client';
-import { VBMLComponentTemplate } from './component';
+import { TransformInput } from './characters.ts';
+import { VBClient } from './client.ts';
+import { VBMLComponentTemplate } from './component.ts';
 async function main() {
 	const input = ':red: Hello Red!';
 	const outputString = TransformInput(input);

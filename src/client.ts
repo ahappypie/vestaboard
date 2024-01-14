@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from 'axios';
-import { VBMessage } from './types';
-import { VBMLComponentTemplate } from './component';
+import axios, { AxiosResponse } from 'npm:axios@1.6.5';
+import { VBMessage } from './types.ts';
+import { VBMLComponentTemplate } from './component.ts';
 
 interface ComposeRequest {
 	props?: { [key: string]: string };
@@ -17,7 +17,7 @@ export class VBClient {
 		this.rw = axios.create({
 			baseURL: `https://rw.vestaboard.com`,
 			timeout: 1000,
-			headers: { 'X-Vestaboard-Read-Write-Key': process.env.VB_RW_KEY },
+			headers: { 'X-Vestaboard-Read-Write-Key': Deno.env.get('VB_RW_KEY') },
 		});
 	}
 

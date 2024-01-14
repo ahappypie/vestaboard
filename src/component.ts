@@ -1,8 +1,8 @@
-import { TransformInput } from './characters';
+import { TransformInput } from './characters.ts';
 
 interface VBMLStyle {
-	height?: Number;
-	width?: Number;
+	height?: number;
+	width?: number;
 	justify?: 'left' | 'right' | 'center' | 'justified';
 	align?: 'top' | 'bottom' | 'center';
 }
