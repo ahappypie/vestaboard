@@ -1,31 +1,28 @@
 import { VBMLComponentTemplate } from './component.ts';
 import { VBClient } from './client.ts';
 
-async function main() {
-	const client = new VBClient();
+const client = new VBClient();
 
-	const ct = new VBMLComponentTemplate({
-		template: '{{hour}}:{{minute}}',
-		style: {
-			justify: 'center',
-			align: 'center',
-		},
-	});
+const ct = new VBMLComponentTemplate({
+	template: '{{hour}}:{{minute}}',
+	style: {
+		justify: 'center',
+		align: 'center',
+	},
+});
 
-	let date = new Date();
+let date = new Date();
 
-	const firstDisplay = await GetClock(date, ct);
-	// await client.SendMessage(firstDisplay);
-	console.log('set clock');
+const firstDisplay = await GetClock(date, ct);
+// await client.SendMessage(firstDisplay);
+console.log('set clock');
 
-	Deno.cron('vbclock', '* * * * *', async () => {
-		date = new Date();
-		const display = await GetClock(date, ct);
-		// await client.SendMessage(display);
-		console.log('update clock');
-	});
-}
-main();
+Deno.cron('vbclock', '* * * * *', async () => {
+	date = new Date();
+	const display = await GetClock(date, ct);
+	// await client.SendMessage(display);
+	console.log('update clock');
+});
 
 async function GetClock(date: Date, ct: VBMLComponentTemplate) {
 	const hours = hours_with_zeroes(date);
