@@ -12,4 +12,3 @@ const req = {
 const outputMessage = await VBClient.Compose(req);
 
 console.log(outputMessage);
-

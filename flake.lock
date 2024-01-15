@@ -1,5 +1,84 @@
 {
   "nodes": {
+    "deno2nix": {
+      "inputs": {
+        "devshell": "devshell",
+        "flake-compat": "flake-compat",
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1694341738,
+        "narHash": "sha256-zEosA90LiNd3/EFpZNKs7XPdY7PIsat19I6uJb/MuYU=",
+        "owner": "sno2wman",
+        "repo": "deno2nix",
+        "rev": "38dcc186763ab930acd1d751b4bfe3c0bd606ef3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sno2wman",
+        "repo": "deno2nix",
+        "type": "github"
+      }
+    },
+    "devshell": {
+      "inputs": {
+        "flake-utils": [
+          "deno2nix",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "deno2nix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1705240333,
+        "narHash": "sha256-s9h2h44fCi54sSIT9ktd3eDik9JDpQE9DeYuXcA44u4=",
+        "owner": "numtide",
+        "repo": "devshell",
+        "rev": "ca1ff587c602b934afe830ea3cb26d0fbde4c395",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "devshell",
+        "type": "github"
+      }
+    },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1696426674,
+        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1667395993,
+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1705204527,
@@ -18,6 +97,7 @@
     },
     "root": {
       "inputs": {
+        "deno2nix": "deno2nix",
         "nixpkgs": "nixpkgs"
       }
     }
