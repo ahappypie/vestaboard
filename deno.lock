@@ -56,5 +56,26 @@
       }
     }
   },
-  "remote": {}
+  "redirects": {
+    "https://deno.land/x/notion_sdk/src/mod.ts": "https://deno.land/x/notion_sdk@v2.2.3/src/mod.ts"
+  },
+  "remote": {
+    "https://deno.land/std@0.214.0/datetime/_common.ts": "a62214c1924766e008e27d3d843ceba4b545dc2aa9880de0ecdef9966d5736b6",
+    "https://deno.land/std@0.214.0/datetime/constants.ts": "5c198b3b47fbcc4d913e61dcae1c37e053937affc2c9a6a5ad7e5473bab3e4a6",
+    "https://deno.land/std@0.214.0/datetime/day_of_year.ts": "501924941a9b007dc4f6a805c14eb10397fa03af3db5670c5df8b67f40ca0e92",
+    "https://deno.land/std@0.214.0/datetime/difference.ts": "eb32269322353e8c88375b98b20791311012a84a47050c690221ed5c820a58f1",
+    "https://deno.land/std@0.214.0/datetime/format.ts": "aea98f9b51abebe79805cf4b6e566ae6cdf4f91dfd728e2e2505de4729e03f2a",
+    "https://deno.land/std@0.214.0/datetime/is_leap.ts": "8c22857127daad38593124408382cd09b7f8f19d2b33b44b7d04e6a176d621e0",
+    "https://deno.land/std@0.214.0/datetime/mod.ts": "e191e5498662322024f21e29875cb4d6c5a9bf55e54d571b144c17678b069044",
+    "https://deno.land/std@0.214.0/datetime/parse.ts": "bb248bbcb3cd54bcaf504a1ee670fc4695e429d9019c06af954bbe2bcb8f1d02",
+    "https://deno.land/std@0.214.0/datetime/week_of_year.ts": "efbafeff83418e049931d1668669396025020a73094af6291129761d68aa6a73",
+    "https://deno.land/x/notion_sdk@v2.2.3/src/Client.ts": "00938a998e9aa825688979e6b51669f12387ff9800477dda255ca325a7868de8",
+    "https://deno.land/x/notion_sdk@v2.2.3/src/api-endpoints.ts": "2390b0e86be564a00e1b97f2cf2877f5ffbe09221208cf93f865ce45ef71b27b",
+    "https://deno.land/x/notion_sdk@v2.2.3/src/errors.ts": "43a4845c2e6576ccee7c6056172a194a6baefc3957d1ac92af6420297883197a",
+    "https://deno.land/x/notion_sdk@v2.2.3/src/helpers.ts": "f5623eb0999cdbaede187af6737eac4cd557d089ee09399bd920d3d55b296743",
+    "https://deno.land/x/notion_sdk@v2.2.3/src/logging.ts": "78ff1ed03a20a356b9c9f2cb080aaafec80702c9c292d3a6d229f34e39be6869",
+    "https://deno.land/x/notion_sdk@v2.2.3/src/mod.ts": "fd42505b28c4dcc791369f2a070a4871799aa86bbfdb39f60745dd7746a4e684",
+    "https://deno.land/x/notion_sdk@v2.2.3/src/type-utils.ts": "f533961a11ca45b4362de4688087104da18c37f5fc081c2d388112891287f033",
+    "https://deno.land/x/notion_sdk@v2.2.3/src/utils.ts": "e47eefcad19c6b4ce4c5ee7f34e9201edf4ba7af5f9e3fababc3253e0bb637cd"
+  }
 }

@@ -2,7 +2,8 @@
   "tasks": {
     "dev": "deno run --allow-env --allow-read --allow-net src/index.ts",
     "clock": "deno run --unstable-cron --allow-env --allow-read --allow-net src/clock.ts",
-    "build": "deno compile --unstable --allow-env --allow-read --allow-net --output vbclock src/clock.ts"
+    "build": "deno compile --unstable --allow-env --allow-read --allow-net --output vbclock src/clock.ts",
+    "upcoming": "deno run --unstable-cron --allow-env --allow-read --allow-net src/upcoming.ts"
   },
   "fmt": {
     "useTabs": true,

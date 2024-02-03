@@ -10,7 +10,7 @@ const DICTIONARY: { [char: string]: number } = {
 	filled: 71,
 };
 
-function TransformToken(s: string): string {
+export function TransformToken(s: string): string {
 	if (s.startsWith(':') && s.endsWith(':')) {
 		const char = s.split(':')[1];
 		const code = DICTIONARY[char];
