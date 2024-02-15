@@ -2,16 +2,14 @@ import { VBMLComponentTemplate } from './component.ts';
 import { VBClient } from './client.ts';
 import { GetUpcomingEvents, EventRecord } from "./notion.ts";
 import { format } from "https://deno.land/std@0.214.0/datetime/mod.ts";
-import {TransformToken} from "./characters.ts";
+import { TransformToken } from "./characters.ts";
 
+const kv = await Deno.openKv('../data/kv');
 const client = new VBClient();
 
-let date = new Date();
-let events = await GetUpcomingEvents({after: date});
-
-let categories: string[] = [];
-let eventsByCategory: { [cat in string]: Pick<EventRecord, 'event' | 'start' | 'end'>[] } = {};
-let categoryColor: { [cat in string]: string } = {};
+let date: Date;
+let categories: string[];
+let events: EventRecord[];
 
 const ht = new VBMLComponentTemplate({
     template: 'Upcoming: {{category}}',
@@ -29,33 +27,36 @@ const uet = new VBMLComponentTemplate({
     }
 });
 
-
-populateLocalData();
+await populateLocalData();
 let categoryIndex= 0;
 const firstDisplay = await FormatEvents();
 await client.SendMessage(firstDisplay);
-let refreshCounter = 1;
 console.log('set first display');
 
 Deno.cron('upcoming events', '* * * * *', async () => {
     await nextCategory()
     const display = await FormatEvents();
     await client.SendMessage(display);
-    refreshCounter += 1;
-    console.log('update events');
+    console.log('updated events');
 });
 
 async function FormatEvents() {
     // deno-lint-ignore no-explicit-any
     let props: any = {}
     props['category'] = categories[categoryIndex]
-    eventsByCategory[props.category].forEach((e, i) => {
+    let categoryData = await kv.get<CategoryEvents>(['categories', props['category']])
+    if(!categoryData.value) {
+        console.log('no categories found in kv, getting new data');
+        await populateLocalData();
+        categoryData = await kv.get<CategoryEvents>(['categories', props['category']])
+    }
+    categoryData.value?.events.forEach((e, i) => {
         const eventStart = datetime(e.start)
         props[`name${i}`] = e.event.substring(0, 16)
         props[`date${i}`] = format(eventStart, 'MM{59}dd')
     })
 
-    const color: string = TransformToken(`:${categoryColor[props.category]}:`)
+    const color: string = TransformToken(`:${categoryData.value?.color}:`)
     let colorLine = '';
     for (let j = 0; j < 22; j++) {
         colorLine += color
@@ -76,33 +77,42 @@ async function FormatEvents() {
     });
 }
 
-function populateLocalData(): void {
-    events.forEach(e => {
-        if (eventsByCategory[e.category] && eventsByCategory[e.category].length < 4) {
-            eventsByCategory[e.category].push({event: e.event, start: e.start, end: e.end})
-        } else {
-            eventsByCategory[e.category] = [{event: e.event, start: e.start, end: e.end}]
-        }
+type Event = Pick<EventRecord, 'event' | 'start' | 'end'>;
+interface CategoryEvents {
+    color: string;
+    events: Event[];
+}
+async function populateLocalData(): Promise<void> {
+    date = new Date();
+    categories = [];
+    events = await GetUpcomingEvents({after: date});
 
-        categoryColor[e.category] = e.color
+    const eventsByCategory: { [cat in string]: { color: string; events: Event[] } } = {};
+    events.forEach(e => {
+        if(!eventsByCategory[e.category]) {
+            eventsByCategory[e.category] = {color: e.color, events: [{event: e.event, start: e.start, end: e.end}]}
+        } else if (eventsByCategory[e.category].events.length < 4) {
+            eventsByCategory[e.category].events.push({event: e.event, start: e.start, end: e.end})
+        }
 
         if(categories.indexOf(e.category) < 0) {
             categories.push(e.category)
         }
-    })
+    });
+
+    for (const cat of Object.keys(eventsByCategory)) {
+        await kv.set(['categories', cat], eventsByCategory[cat], { expireIn: (categories.length * 60 * 1000) - (500 * 60) }); //half a minute before looping to beginning of categories
+    }
+    // const iter = kv.list<string>({ prefix: ["categories"] });
+    // const debugCategories = [];
+    // for await (const res of iter) debugCategories.push(res);
+    // console.log(debugCategories);
 }
 
 async function nextCategory(): Promise<void> {
     const zindex = categories.length - 1
     if(categoryIndex === zindex) {
-        date = new Date()
-        events = await GetUpcomingEvents({after: date});
-        categories = [];
-        eventsByCategory = {};
-        categoryColor = {};
-        populateLocalData();
         categoryIndex = 0;
-        refreshCounter = 1;
     } else {
         categoryIndex += 1
     }
